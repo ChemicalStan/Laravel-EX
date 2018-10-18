@@ -13,6 +13,16 @@
 
 /*
 |--------------------------------------------------------------------------
+| Laravel Default Route
+|--------------------------------------------------------------------------
+*/
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+/*
+|--------------------------------------------------------------------------
 | Laravel DATABASE Raw Queries
 |--------------------------------------------------------------------------
 */
@@ -47,11 +57,43 @@ Route::get('/delete', function(){
     return "post deleted";
 });
 
+/*
+|--------------------------------------------------------------------------
+| ELOQUENT OR OBJECT ORIENTED MODEL [ORM]
+|--------------------------------------------------------------------------
+*/
+use App\Post;
+// QUERY TO FETCH ALL
+Route::get('/show', function(){
+    // 
+    $posts = Post::all();
+    
+    // return $posts;
 
+    foreach($posts as $post){
+        return $post->title;
+    }
 
+});
 
-Route::get('/', function () {
-    return view('welcome');
+// QUERY TO FETCH A PARTICULAR POST
+Route::get('/find', function(){
+    $post = Post::find(1);
+    return $post->title;
+});
+
+// QUERY TO RETRIEVE INFORMATION USING CONDITIONS
+Route::get('/display', function(){
+    $posts = Post::where('id', 1)->orderBy('id', 'desc')->take(1)->get();
+    return $posts;
+});
+
+// QUERY TO RETRIEVE DATA CONTAINING EXCEPTIONS
+Route::get('/findMore', function(){
+    $posts = Post::findOrFail(2);
+    return $posts;
+    // $posts = where('user_count', '<', 50)->findOrFail();
+    // return $posts;
 });
 
 // PASSING PARAMETERS TO A ROUTE
