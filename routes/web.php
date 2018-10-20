@@ -127,13 +127,28 @@ Route::get('/basicUpdate', function(){
 });
 
 // BEST WAY TO CREATE DATA FOR FORMS ** don't forget mass assigmnt settings
-
 Route::get('/create', function(){
     Post::create(['title'=>'proper way to insert', 'content'=>'proper content insertion']);    
     return "post created succesfully";
 });
 
+// NORMAL CONVENTION FOR UPDATING POST USING THE UPDATE METHOD
+Route::get('/updatePost', function(){
+    Post::where('id', 2)->where('is_admin', 0)->update(['title'=>'i\'m supper exited to learn laravel', 'content'=>'THIS SHIT IS GETTING INTERESTING']);
+    return 'post updated';
+});
 
+// DELETING USING ELOQUENT
+Route::get('/basicDelete', function(){
+    $post = Post::find(2);
+    $post->delete();
+    // THE DESTROY METHOD ABOVE IS USED WHEN USING THE KEY TO DELETE
+    Post::destroy([3, 4]);
+    return "Succesfully Deleted";
+    // DELETING USING THE NORMAL ELOQUENT QUERY
+    Post::where('id', 5)->where('is_admin', 0)->delete();
+    return 'Deleted succes';
+});
 
 
 
