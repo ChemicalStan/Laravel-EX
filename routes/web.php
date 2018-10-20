@@ -59,7 +59,13 @@ Route::get('/delete', function(){
 
 /*
 |--------------------------------------------------------------------------
-| ELOQUENT OR OBJECT ORIENTED MODEL [ORM]
+| ELOQUENT OR OBJECT RELATIONAL MAPPER [ORM]
+|--------------------------------------------------------------------------
+*/
+
+/*
+|--------------------------------------------------------------------------
+| RETRIEVING DATA FROM DATABASE
 |--------------------------------------------------------------------------
 */
 use App\Post;
@@ -96,6 +102,53 @@ Route::get('/findMore', function(){
     // return $posts;
 });
 
+/*
+|--------------------------------------------------------------------------
+| INSERTING DATA INTO DATABASE USING ELOQUENT
+|--------------------------------------------------------------------------
+*/
+
+// INSERTING DATA USING SAVE METHOD
+Route::get('/basicInsert', function(){
+    $post = new Post;
+    $post->title = 'This is my first eloquent title';
+    $post->content = 'This content contains my first eloquent statement';
+    $post->save();
+    return "Post created successfully";
+});
+
+// Updating data using eloquent save method
+Route::get('/basicUpdate', function(){
+    $post = Post::find(2);
+    $post->title = 'First eloquent update';
+    $post->content = 'Eloquent is php made easy';
+    $post->save();
+    return 'post updated succesfully';
+});
+
+// BEST WAY TO CREATE DATA FOR FORMS ** don't forget mass assigmnt settings
+
+Route::get('/create', function(){
+    Post::create(['title'=>'proper way to insert', 'content'=>'proper content insertion']);    
+    return "post created succesfully";
+});
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| SIMPLE USES OF ROUTE
+|--------------------------------------------------------------------------
+*/
 // PASSING PARAMETERS TO A ROUTE
     // Route::get('/collect/{id}/{name}', function($id,$name){
     //     return "Hello World " . $id . " " . $name ;
