@@ -150,7 +150,42 @@ Route::get('/basicDelete', function(){
     return 'Deleted succes';
 });
 
+// SOFT DELETING USING ELOQUENT (DELETED FILE THAT CAN BE RECOVERED)
+    // for this to be done, you have to create a new migration to add deleted_at
+    // column to each table.. after this, use/include the softDeletes file into your
+    // model and use it within the class extention, then create a protected dates instance
+    // which should carry the deleted_at array in it, also create a dropColumn for rollback purpose in your migration..
+Route::get('/softDelete', function(){
+    $post = Post::find(3);
+    $post->delete();
+    return 'soft delete was successful!';
+});
 
+// HOW TO RETRIEVE SOFT DELETED DATAS FROM THE DATABASE
+Route::get('/readsoftdelete', function(){
+    // THIS METHOD RETRIEVES EVERYTHING INCLUDING THE TRASHED ITEMS
+         $post = Post::withTrashed()->get();
+         return $post;
+    // THIS METHOD RETRIEVES ONLY THE TRASHED ITEMS
+        // $post = Post::onlyTrashed()->get();
+        // return $post;
+});
+
+// RESTORING DELETED ITEMS
+Route::get('/restoreDeleted', function (){
+    Post::withTrashed()->where('id', 2)->restore();
+    return "Restored Succesfully";
+});
+
+
+// DELETING A RECORD PERMANENTLY
+Route::get('forceDelete', function(){
+    // THIS DELETES ONLY THE TRASHED ITEM WITH EMPTY IS_ADMIN
+    Post::onlyTrashed()->where('is_admin', 0)->forceDelete();
+    return 'Deleted Parmanently';
+    // THIS DELETES EVERY COLUMN WITH AN EMPTY IS_ADMIN
+    // Post::withTrashed()->whete('is_admin', 0)->forceDelete();
+});
 
 
 
