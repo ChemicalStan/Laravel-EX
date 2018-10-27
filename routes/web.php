@@ -57,11 +57,11 @@ Route::get('/delete', function(){
     return "post deleted";
 });
 
-/*
+/*-------------------------------------------------------------------------
 |--------------------------------------------------------------------------
-| ELOQUENT OR OBJECT RELATIONAL MAPPER [ORM]
+|   ELOQUENT OR OBJECT RELATIONAL MAPPER [ORM]
 |--------------------------------------------------------------------------
-*/
+-------------------------------------------------------------------------*/
 
 /*
 |--------------------------------------------------------------------------
@@ -180,15 +180,42 @@ Route::get('/restoreDeleted', function (){
 
 // DELETING A RECORD PERMANENTLY
 Route::get('forceDelete', function(){
-    // THIS DELETES ONLY THE TRASHED ITEM WITH EMPTY IS_ADMIN
+// THIS DELETES ONLY THE TRASHED ITEM WITH EMPTY IS_ADMIN
     Post::onlyTrashed()->where('is_admin', 0)->forceDelete();
     return 'Deleted Parmanently';
-    // THIS DELETES EVERY COLUMN WITH AN EMPTY IS_ADMIN
+// THIS DELETES EVERY COLUMN WITH AN EMPTY IS_ADMIN
     // Post::withTrashed()->whete('is_admin', 0)->forceDelete();
 });
 
 
+/*
+|--------------------------------------------------------------------------
+| ELOQUENT RELATONSHIPS
+|--------------------------------------------------------------------------
+*/
+use App\User;
 
+// ONE TO ONE RELATIONSHIP
+Route::get('/user/{id}/post', function($id){
+ // ModelName::find(userId)->functionName->column;
+    return User::find($id)->post->title;
+});
+
+// INVERSE OF ONE TO ONE RELATIONSHIP
+Route::get('/post/{id}/user', function($id){
+// modelName::find(postId)->functionName->column;
+    return Post::find($id)->user->name;
+});
+
+// ONE TO MANY ELOQUENT RELATIONSHIP
+Route::get('/oneToMany', function(){
+    $user = User::find(1);
+    $posts = $user->posts;
+    foreach($posts as $post){
+        echo $post->title . "<br>";
+    }
+
+});
 
 
 

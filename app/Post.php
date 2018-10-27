@@ -24,4 +24,14 @@ class Post extends Model
         'content'
     ];
 
+// LARAVEL ELOQUENT RELATIONSHIP
+    // Inverse of ONE TO ONE
+    public function user(){
+    // here belongsTo() is used instead of hasOne() because the user id is
+    // found in the posts table and not the other way round. 
+    // In a nutshell this fetches the user that belongs to a particular post
+    // see User.php for a different column name.
+        return $this->belongsTo('App\User');
+    }
+
 }
