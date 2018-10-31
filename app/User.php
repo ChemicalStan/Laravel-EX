@@ -50,6 +50,11 @@ class User extends Authenticatable
         return $this->hasMany('App\post');
     }
 
+// ONE TO MANY ELOQUENT RELATIONSHIP
+    public function roles(){
+        return $this->belongsToMany('App\Role');
+    }
+
 
 
 }

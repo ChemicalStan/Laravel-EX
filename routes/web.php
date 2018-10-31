@@ -218,6 +218,18 @@ Route::get('/oneToMany', function(){
 });
 
 
+// MANY TO MANY ELOQUENT RELATIONSHIP
+    // EXPLANATION:: find user with the id {id}, for 
+    // that user, select the user role where it is equal
+    // to the id of the user, return the role name.
+Route::get('/user/{id}/role', function($id){
+    $users = User::find($id);
+
+    foreach($users->roles as $role){
+        return $role->name;
+
+    }
+});
 
 
 
