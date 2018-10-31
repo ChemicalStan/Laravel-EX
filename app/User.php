@@ -52,7 +52,8 @@ class User extends Authenticatable
 
 // ONE TO MANY ELOQUENT RELATIONSHIP
     public function roles(){
-        return $this->belongsToMany('App\Role');
+        // HERE, THE withPivot() method indicates the rows we permit to return. 
+        return $this->belongsToMany('App\Role')->withPivot('created_at');
     }
 
 
