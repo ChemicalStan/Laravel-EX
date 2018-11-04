@@ -56,6 +56,14 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role')->withPivot('created_at');
     }
 
+// POLYMORPHIC ELOQUENT RELATIONSHIP
+    public function photos(){
+    // This denotes that more than one images can be fetched from the Photo
+    // model and the second parameter contains the name of the function that
+    // buffers the image
+        return $this->morphMany('App\Photo', 'imageable');
+    }
+
 
 
 }

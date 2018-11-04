@@ -33,5 +33,13 @@ class Post extends Model
     // see User.php for a different column name.
         return $this->belongsTo('App\User');
     }
+    
+// POLYMORPHIC ELOQUENT RELATIONSHIP
+    public function photos(){
+    // This denotes that more than one images can be fetched from the Photo
+    // model and the second parameter contains the name of the function that
+    // buffers the image
+        return $this->morphMany('App\Photo', 'imageable');
+    }
 
 }

@@ -239,6 +239,43 @@ Route::get('/user/pivot', function(){
     }
 });
 
+// HAS MANY THROUGH ELOQUENT RELATIONSHIP
+use App\Country;
+
+Route::get('/user/country', function(){
+    $country = Country::find(4);
+    foreach($country->posts as $post){
+        echo $post->title;
+    }
+});
+
+// LARAVEL POLYMORPHIC ELOQUENT RELATIONSHIP
+use App\Photo;
+
+    // to get a particular users image
+Route::get('/user/photo', function(){
+    $user = User::find(1);
+    foreach($user->photos as $photo){
+        return $photo->imageable_type;
+    }
+
+});
+    // to get the image of a particular post
+Route::get('/post/photo', function(){
+    $post = Post::find(2);
+    foreach ($post->photos as $photo) {
+        return $photo->path;
+    }
+});
+
+// INVERSE OF LARAVEL POLYMORPHIC ELOQUENT RELATIONSHIP
+Route::get('/photo/{id}/owner', function($id){
+    $photo = Photo::findOrFail($id);
+                // function name in App\photo
+    $owner = $photo->imageable;
+    return $owner;
+});
+
 
 
 /*
