@@ -42,4 +42,15 @@ class Post extends Model
         return $this->morphMany('App\Photo', 'imageable');
     }
 
+// POLYMORPHIC MANY TO MANY ELOQUENT RELATIONSHIP
+    public function tags (){
+        // This pushes info from the posts table to the tag table/model 
+    // which inturn pushed to other tables like videos table etc... In
+    // other words, this line of code below gives permission to the tags
+    // model
+
+                            // Path, Singular table name
+        return $this->morphToMany('App\Tag', 'taggable');
+    }
+
 }

@@ -277,6 +277,23 @@ Route::get('/photo/{id}/owner', function($id){
 });
 
 
+// MANY TO MANY POLYMORPHIC LARAVEL ELOQUENT RELATIONSHIP
+
+Route::get('/post/tags', function() {
+    $post = Post::find(1);
+    foreach ($post->tags as $tag){
+        echo $tag->name;
+    }
+});
+use App\Tag;
+Route::get('/tag/posts', function (){
+    $tag = Tag::find(2);
+    foreach($tag->posts as $post){
+        echo $post->title;
+    }
+});
+
+
 
 /*
 |--------------------------------------------------------------------------
