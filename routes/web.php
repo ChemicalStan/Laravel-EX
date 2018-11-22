@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Post;
+use App\Tag;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +22,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+/*
+|--------------------------------------------------------------------------
+|   LARAVEL FORM VALIDATION.
+|--------------------------------------------------------------------------
+*/
+
+Route::resource('/posts', 'PostsController');
+
+
 
 
 /*
@@ -68,7 +81,6 @@ Route::get('/delete', function(){
 | RETRIEVING DATA FROM DATABASE
 |--------------------------------------------------------------------------
 */
-use App\Post;
 // QUERY TO FETCH ALL
 Route::get('/show', function(){
     // 
@@ -285,7 +297,7 @@ Route::get('/post/tags', function() {
         echo $tag->name;
     }
 });
-use App\Tag;
+
 Route::get('/tag/posts', function (){
     $tag = Tag::find(2);
     foreach($tag->posts as $post){
@@ -293,7 +305,13 @@ Route::get('/tag/posts', function (){
     }
 });
 
-
+Route::get('/testinsert', function(){
+    $user = User::findOrFail(1);
+    $post = new Post(['title'=>'testing', 'content'=>'checking shits']);
+    
+    $user->post()->save($post);
+    echo 'post Added';
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -320,7 +338,7 @@ Route::get('/tag/posts', function (){
     // Route::resource('posts', 'PostController');
 
 // ROUTE TO A VIEW
-Route::get('/posts/{id}', 'PostsController@posts');
+// Route::get('/posts/{id}', 'PostsController@posts');
 
 // PASSING PARAMETERS FROM ROUTE TO VIEWS
     // Route::get('/savepost/{id}/{name}/{password}', 'CommentsController@create');
