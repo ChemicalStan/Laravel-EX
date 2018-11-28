@@ -118,12 +118,19 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+    'providers' => [
+        // ...
+        Collective\Html\HtmlServiceProvider::class,
+        // ...
+    ],
+
 
     'providers' => [
 
         /*
          * Laravel Framework Service Providers...
          */
+        // Collective\Html\HtmlServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -172,9 +179,16 @@ return [
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
     */
+    'aliases' => [
+        // ...
+       'Form' => Collective\Html\FormFacade::class,
+       'Html' => Collective\Html\HtmlFacade::class,
+        // ...
+    ],
 
     'aliases' => [
-
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,

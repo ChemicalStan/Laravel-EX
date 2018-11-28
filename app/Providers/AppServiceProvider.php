@@ -16,6 +16,11 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
         //
+
+        \Form::component(
+            'bsText', 'partials.form.text', ['name', 'value', 'attributes']
+        );
+ 
     }
 
     /**
