@@ -18,6 +18,15 @@
         <input type="text" placeholder="Enter Content" name="content">
         <input type="submit" name="submit"> --}}
 {!! form::close()!!}
+
+@if(!empty($errors))
+    <ul>
+        @foreach ($errors->all() as $error)
+            <li>{{$error}}</li>
+        @endforeach
+    </ul>
+
+@endif()
 @stop
 @section('footer')
 

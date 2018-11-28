@@ -28,8 +28,11 @@ Route::get('/', function () {
 |   LARAVEL FORM VALIDATION.
 |--------------------------------------------------------------------------
 */
-
-Route::resource('/posts', 'PostsController');
+// THE GROUP STATIC METHOD BELOW MAKES THE $ERROR VARIABLE
+// AVAILABLE THROUGH OUT THE APPLICATION
+Route::group(['middleware'=>'web'], function(){
+    Route::resource('/posts', 'PostsController');    
+});
 
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
+use App\Http\Requests\CreatePostsRequest;
 
 class PostsController extends Controller
 {
@@ -33,10 +34,17 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostsRequest $request)
     {
         // Post::create($request->all());
-        
+        // VALIDATION OF FORM INPUTS
+        // $this->validate($request, [
+        //     'title'=>'required|max:8',
+        //     'content'=>'required',
+
+        // ]);
+
+
         $post = new Post;
         $post->title = $request->title;
         $post->content = $request->content;

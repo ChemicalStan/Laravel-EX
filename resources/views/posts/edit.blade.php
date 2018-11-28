@@ -15,6 +15,7 @@
 {{-- <form method="POST" action="{{action('PostsController@destroy', $post->id)}}"> --}}
 {!!Form::open(['method'=>'DELETE', 'action'=>['PostsController@destroy', $post->id]])!!}
     {!!Form::submit('Delete', ['class'=>'btn btn-danger'])!!}
+
 {!!Form::close()!!}
 @stop
 @section('footer')
