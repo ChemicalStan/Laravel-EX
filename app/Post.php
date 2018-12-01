@@ -21,8 +21,17 @@ class Post extends Model
 // MASS ASSIGMENT SETTINGS
     protected $fillable = [
         'title',
-        'content'
+        'content',
+        'path'
     ];
+
+    public $directory = "/images/";
+// ACCESSOR ATTRIBUTE
+public function getPathAttribute($value){
+    
+    return $this->directory . $value;
+}
+
 
 // LARAVEL ELOQUENT RELATIONSHIP
     // Inverse of ONE TO ONE
@@ -53,4 +62,11 @@ class Post extends Model
         return $this->morphToMany('App\Tag', 'taggable');
     }
 
+
+// LARAVEL QUERY SCOPE
+    // This creates a static short cut to a long code. This static method is 
+    // used later on
+    public static function scopeNewest($query){
+        return $query->orderBy('id', 'asc')->get();
+    }
 }

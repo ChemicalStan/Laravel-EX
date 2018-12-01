@@ -64,6 +64,18 @@ class User extends Authenticatable
         return $this->morphMany('App\Photo', 'imageable');
     }
 
+// ACCESSORS FOR DATABASE
+// this manupulates the data comming from the data base before it is displayed
+    public function getNameAttribute($value){
+        return ucfirst($value);
+    }
+
+// MUTATORS FOR DATABASE
+// this manipulates a data before it is saved to the database
+    public function setNameAttribute($value){
+        $this->attributes['name']= strtoupper($value);
+    }
+
 
 
 }

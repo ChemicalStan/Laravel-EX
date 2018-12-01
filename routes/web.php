@@ -12,6 +12,8 @@
 */
 use App\Post;
 use App\Tag;
+use Carbon\Carbon;
+use App\User;
 
 
 /*
@@ -31,8 +33,29 @@ Route::get('/', function () {
 // THE GROUP STATIC METHOD BELOW MAKES THE $ERROR VARIABLE
 // AVAILABLE THROUGH OUT THE APPLICATION
 Route::group(['middleware'=>'web'], function(){
-    Route::resource('/posts', 'PostsController');    
+    Route::resource('/posts', 'PostsController'); 
+    Route::get('/dates', function (){
+        $date = new DateTime('+1 week');
+        echo $date->format('d-m-y');
+        echo '<br>';
+        echo Carbon::now()->AddDays(2)->diffForHumans();
+        echo '<br>';
+    });   
+
+
+    Route::get('/getname', function(){
+        $user = User::find(1);
+        echo $user->name;
+    });
+
+    Route::get('/setname', function(){
+        $user = User::find(1);
+        $user->name = 'chemicalstan';
+        $user->save();
+    });
 });
+
+
 
 
 
@@ -208,7 +231,7 @@ Route::get('forceDelete', function(){
 | ELOQUENT RELATONSHIPS
 |--------------------------------------------------------------------------
 */
-use App\User;
+
 
 // ONE TO ONE RELATIONSHIP
 Route::get('/user/{id}/post', function($id){

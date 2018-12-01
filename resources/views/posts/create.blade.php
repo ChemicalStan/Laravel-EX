@@ -3,13 +3,14 @@
 @section('content')
 <h1>Create Post</h1>
 {{-- <form method="post" action="{{ action('PostsController@store')}}" enctype="multipart/form-data"> --}}
-{!! form::open(['method'=>'POST', 'action'=>'PostsController@store']) !!}
+{!! form::open(['method'=>'POST', 'action'=>'PostsController@store', 'files'=>true]) !!}
     {{-- {{ csrf_field() }} --}}
     <div class="form-group">
     {!!form::label('title', 'Title:')!!}
     {!!form::text('title', null, ['class'=>'form-control'])!!}
     {!!form::label('content', 'Content:')!!}
     {!!form::text('content', null, ['class'=>'form-control'])!!}
+    {!!Form::file('file', ['class'=>''])!!}
     </div>
     <div class="form-group">
         {!!form::submit('Create Post', ['class'=>'btn btn-primary'])!!}

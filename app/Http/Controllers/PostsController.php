@@ -14,7 +14,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::newest();
         return view('posts.index', compact('posts'));
     }
 
@@ -34,22 +34,45 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    // To validate a form i.e [to make sure all columns are
+    // filled with the appropriate date], we'll have to create
+    // a request using php artisan
     public function store(CreatePostsRequest $request)
     {
         // Post::create($request->all());
-        // VALIDATION OF FORM INPUTS
+    // CREATING A POST AND UPLOADING FILE
+        $input = $request->all();
+        $file = $request->file('file');
+        $name = $file->getClientOriginalName();
+                  //PATH   ,IMAGE_NAME
+        $file->move('images', $name);
+
+        $input['path']= $name;
+        Post::Create($input);
+        echo 'this post has been created';
+
+    // RETRIEVING FILE DATE FROM FORM
+                             //form name
+        // echo $file = $request->file('file');
+        // echo '<br>';
+        // echo $file->getClientOriginalName();
+                    
+            
+    // VALIDATION OF FORM INPUTS
         // $this->validate($request, [
         //     'title'=>'required|max:8',
         //     'content'=>'required',
 
         // ]);
 
+    
 
-        $post = new Post;
-        $post->title = $request->title;
-        $post->content = $request->content;
-        $post->save();
-        return redirect('/posts');
+        // $post = new Post;
+        // $post->title = $request->title;
+        // $post->content = $request->content;
+        // $post->save();
+        // return redirect('/posts');
         
     }
 
